@@ -10,12 +10,4 @@ export const fetchByQuery = searchedQuery => {
   });
 
   return axios.get(`https://pixabay.com/api/?${searchParams}`);
-
-  //   return fetch(`https://pixabay.com/api/?${searchParams}`).then(response => {
-  //     if (!response.ok) {
-  //       throw new Error(response.status);
-  //     }
-
-  //     return response.json();
-  //   });
 };
