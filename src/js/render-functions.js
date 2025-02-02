@@ -1,6 +1,6 @@
-
- export const createGalleryCardTemplate = imgİnfo => {
-    return `
+export const createGalleryCardTemplate = imgİnfo => {
+  return `
+    <div class = 'gallery-size'>
     <li class='gallery-card'>
     <a class='gallery-link' href='${imgİnfo.largeImageURL}'>
     <img class='galley-img' src='${imgİnfo.webformatURL}' alt='${imgİnfo.tags}' width='360'  '/>
@@ -12,5 +12,6 @@
     <p> Downloads: ${imgİnfo.downloads}</p>
     </div>
     </li>
+    </div>
     `;
 };

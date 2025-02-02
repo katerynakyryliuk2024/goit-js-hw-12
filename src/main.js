@@ -14,6 +14,8 @@ const loader = document.querySelector('.loader');
 
 const loadMoreBtnEl = document.querySelector('.load-more-btn');
 
+const cardSize = document.querySelector('.gallery-size');
+
 let page = 1;
 let searchedQuery = '';
 
@@ -66,6 +68,10 @@ const onSearchFormSubmit = async event => {
 
     galleryEl.innerHTML = galleryTemplate;
 
+    let cardHeight = cardSize.getBoundingClientRect();
+
+    cardSize.scrollBy(0, 2 * { height: cardHeight });
+
     const gallerySLB = new SimpleLightbox('.gallery a', {
       captionsData: 'alt',
       captions: true,
@@ -91,10 +97,10 @@ searchFormEl.addEventListener('submit', onSearchFormSubmit);
 
 const onLoadMoreBtnClick = async event => {
   loader.style.display = 'inline-block';
+  page = +1;
   try {
-    page++;
-
     const { data } = await fetchByQuery(searchedQuery, page);
+    console.dir({ data });
 
     const galleryTemplate = data.hits
       .map(el => createGalleryCardTemplate(el))
@@ -102,9 +108,15 @@ const onLoadMoreBtnClick = async event => {
 
     galleryEl.insertAdjacentHTML('beforeend', galleryTemplate);
 
-    if ((page = data.total)) {
+    const lastPage = Math.ceil(data.totalHits / 10);
+
+    if ((page = lastPage)) {
       loadMoreBtnEl.classList.add('is-hidden');
       loadMoreBtnEl.removeEventListener('click', onLoadMoreBtnClick);
+      iziToast.info({
+        message:
+          'We are sorry, but you have reached the end of search results.',
+      });
     }
   } catch (error) {
     console.log(error);
