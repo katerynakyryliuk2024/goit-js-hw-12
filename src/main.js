@@ -16,6 +16,7 @@ const loadMoreBtnEl = document.querySelector('.load-more-btn');
 console.dir(loadMoreBtnEl);
 
 let page = 1;
+let searchedQuery = '';
 
 loader.style.display = 'none';
 
@@ -23,8 +24,8 @@ const onSearchFormSubmit = async event => {
   try {
     event.preventDefault();
 
-    const searchedQuery =
-      event.currentTarget.elements.search_input.value.trim();
+    searchedQuery = event.currentTarget.elements.search_input.value.trim();
+
     if (searchedQuery === '') {
       iziToast.warning({
         title: 'Caution',
@@ -34,6 +35,10 @@ const onSearchFormSubmit = async event => {
     }
 
     loader.style.display = 'inline-block';
+
+    page = 1;
+
+    loadMoreBtnEl.classList.add('is-hidden');
 
     const { data } = await fetchByQuery(searchedQuery, page);
 
@@ -47,13 +52,21 @@ const onSearchFormSubmit = async event => {
       });
 
       galleryEl.innerHTML = '';
+
       searchFormEl.reset();
+
       return;
+    }
+
+    if (data.totalHits > 10) {
+      loadMoreBtnEl.classList.remove('is-hidden');
+      loadMoreBtnEl.addEventListener('click', onLoadMoreBtnClick);
     }
 
     const galleryTemplate = data.hits
       .map(el => createGalleryCardTemplate(el))
       .join('');
+
     galleryEl.innerHTML = galleryTemplate;
 
     const gallerySLB = new SimpleLightbox('.gallery a', {
@@ -119,3 +132,24 @@ const onSearchFormSubmit = async event => {
 };
 
 searchFormEl.addEventListener('submit', onSearchFormSubmit);
+
+const onLoadMoreBtnClick = async event => {
+  try {
+    page++;
+
+    const { data } = await fetchByQuery(searchedQuery, page);
+
+    const galleryTemplate = data.hits
+      .map(el => createGalleryCardTemplate(el))
+      .join('');
+
+    galleryEl.insertAdjacentHTML('beforeend', galleryTemplate);
+
+    if ((page = data.totalHits)) {
+      loadMoreBtnEl.classList.add('is-hidden');
+      loadMoreBtnEl.removeEventListener('click', onLoadMoreBtnClick);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
