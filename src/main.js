@@ -11,7 +11,11 @@ const searchFormEl = document.querySelector('.search-form');
 const galleryEl = document.querySelector('.gallery');
 
 const loader = document.querySelector('.loader');
-console.dir(loader);
+
+const loadMoreBtnEl = document.querySelector('.load-more-btn');
+console.dir(loadMoreBtnEl);
+
+let page = 1;
 
 loader.style.display = 'none';
 
@@ -31,7 +35,7 @@ const onSearchFormSubmit = async event => {
 
     loader.style.display = 'inline-block';
 
-    const { data } = await fetchByQuery(searchedQuery);
+    const { data } = await fetchByQuery(searchedQuery, page);
 
     loader.style.display = 'none';
 

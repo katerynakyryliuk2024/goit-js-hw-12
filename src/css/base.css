@@ -30,96 +30,97 @@ main {
 main:has(.back-link) {
   text-align: center;
 }
-button,input {
+button,
+input {
   font-family: inherit;
   line-height: inherit;
 }
 
-*,::before,::after {
+*,
+::before,
+::after {
   box-sizing: border-box;
 }
 
 .search-form {
   margin-left: 28px;
-max-width: 371px;
-height: 40px;
-display: flex;
-gap: 8px;
-
+  max-width: 371px;
+  height: 40px;
+  display: flex;
+  gap: 8px;
 }
-.form-input{
+.form-input {
   width: 272px;
   border-color: #808080;
-   box-sizing: border-box;
-  font-family: "Montserrat", sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 1.5;
-    letter-spacing: 0.04em;
-    color: #2e2f42;
+  box-sizing: border-box;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  color: #2e2f42;
 }
-.form-input::placeholder{
-  color:#808080;
+.form-input::placeholder {
+  color: #808080;
 }
-.form-input:hover{
+.form-input:hover {
   border-color: #000000;
 }
 
 .form-input:not(:placeholder-shown),
-.form-input:focus-within{
-  border-color: #4E75FF;
+.form-input:focus-within {
+  border-color: #4e75ff;
 }
-.form-button{
+.form-button {
   display: inline-flex;
   border-radius: 8px;
-    padding: 8px 16px;
-    width: 91px;
-    height: 40px;
-    background: #4e75ff;
-    color: #ffff;
-    border: none;
-    font-family: "Montserrat", sans-serif;
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 1.5;
-      letter-spacing: 0.04em;
+  padding: 8px 16px;
+  width: 91px;
+  height: 40px;
+  background: #4e75ff;
+  color: #ffff;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
 }
 .form-button:hover,
-.form-button:focus{
-background-color:#6c8cff;
+.form-button:focus {
+  background-color: #6c8cff;
 }
-.gallery{
+.gallery {
   padding: 0;
-list-style: none;
+  list-style: none;
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
-  
 }
-.description{
+.description {
   display: flex;
   flex-direction: row;
   width: 360px;
   height: 48px;
 }
 
-.gallery-card{
+.gallery-card {
   height: 250px;
   width: 360px;
   border: 1px solid #808080;
 }
 
-.galley-img{
+.galley-img {
   display: block;
   height: 200px;
   max-width: 100%;
   object-fit: cover;
 }
-.gallery.gallery-card{
-  width: calc((100%-48)/3);
+.gallery.gallery-card {
+  width: calc((100%-48) / 3);
 }
-.gallery-link{
+.gallery-link {
   display: block;
   height: 200px;
   width: 360px;
@@ -131,10 +132,9 @@ list-style: none;
   width: 64px;
   height: 64px;
   position: relative;
-  background-image:
-    linear-gradient(#000 16px, transparent 0),
-    linear-gradient(#FF3D00 16px, transparent 0),
-    linear-gradient(#FF3D00 16px, transparent 0),
+  background-image: linear-gradient(#000 16px, transparent 0),
+    linear-gradient(#ff3d00 16px, transparent 0),
+    linear-gradient(#ff3d00 16px, transparent 0),
     linear-gradient(#000 16px, transparent 0);
   background-repeat: no-repeat;
   background-size: 16px 16px;
@@ -146,18 +146,45 @@ list-style: none;
   0% {
     width: 64px;
     height: 64px;
-    transform: rotate(0deg)
+    transform: rotate(0deg);
   }
 
   50% {
     width: 30px;
     height: 30px;
-    transform: rotate(180deg)
+    transform: rotate(180deg);
   }
 
   100% {
     width: 64px;
     height: 64px;
-    transform: rotate(360deg)
+    transform: rotate(360deg);
   }
+}
+
+.load-more-btn {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 32px;
+  border-radius: 8px;
+  padding: 8px 16px;
+  width: 125px;
+  height: 40px;
+  background: #4e75ff;
+  color: #ffff;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+}
+
+.load-more-btn:hover,
+.load-more-btn:focus {
+  background-color: #6c8cff;
+}
+.load-more-btn.is-hidden {
+  display: none;
 }
