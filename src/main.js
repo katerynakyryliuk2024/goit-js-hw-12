@@ -20,6 +20,8 @@ let searchedQuery = '';
 loader.style.display = 'none';
 
 const onSearchFormSubmit = async event => {
+  loader.style.display = 'inline-block';
+
   try {
     event.preventDefault();
 
@@ -33,15 +35,11 @@ const onSearchFormSubmit = async event => {
       return;
     }
 
-    loader.style.display = 'inline-block';
-
     page = 1;
 
     loadMoreBtnEl.classList.add('is-hidden');
 
     const { data } = await fetchByQuery(searchedQuery, page);
-
-    loader.style.display = 'none';
 
     if (data.hits.length === 0) {
       iziToast.error({
@@ -57,7 +55,7 @@ const onSearchFormSubmit = async event => {
       return;
     }
 
-    if (data.totalHits > 10) {
+    if (data.total > 10) {
       loadMoreBtnEl.classList.remove('is-hidden');
       loadMoreBtnEl.addEventListener('click', onLoadMoreBtnClick);
     }
@@ -76,7 +74,6 @@ const onSearchFormSubmit = async event => {
 
     gallerySLB.refresh();
   } catch (error) {
-    loader.style.display = 'none';
     if (err.message === '404') {
       iziToast.error({
         title: 'Error',
@@ -85,12 +82,15 @@ const onSearchFormSubmit = async event => {
       });
     }
     console.log(error);
+  } finally {
+    loader.style.display = 'none';
   }
 };
 
 searchFormEl.addEventListener('submit', onSearchFormSubmit);
 
 const onLoadMoreBtnClick = async event => {
+  loader.style.display = 'inline-block';
   try {
     page++;
 
@@ -102,11 +102,13 @@ const onLoadMoreBtnClick = async event => {
 
     galleryEl.insertAdjacentHTML('beforeend', galleryTemplate);
 
-    if ((page = data.totalHits)) {
+    if ((page = data.total)) {
       loadMoreBtnEl.classList.add('is-hidden');
       loadMoreBtnEl.removeEventListener('click', onLoadMoreBtnClick);
     }
   } catch (error) {
     console.log(error);
+  } finally {
+    loader.style.display = 'none';
   }
 };
