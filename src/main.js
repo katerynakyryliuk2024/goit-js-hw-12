@@ -13,7 +13,6 @@ const galleryEl = document.querySelector('.gallery');
 const loader = document.querySelector('.loader');
 
 const loadMoreBtnEl = document.querySelector('.load-more-btn');
-console.dir(loadMoreBtnEl);
 
 let page = 1;
 let searchedQuery = '';
@@ -87,48 +86,6 @@ const onSearchFormSubmit = async event => {
     }
     console.log(error);
   }
-
-  //   .then(data => {
-  //     if (data.hits.length === 0) {
-  //       iziToast.error({
-  //         title: 'Error',
-  //         message:
-  //           'Sorry, there are no images matching your search query. Please try again!',
-  //       });
-
-  //       galleryEl.innerHTML = '';
-  //       searchFormEl.reset();
-  //       return;
-  //     }
-
-  //     const galleryTemplate = data.hits
-  //       .map(el => createGalleryCardTemplate(el))
-  //       .join('');
-  //     galleryEl.innerHTML = galleryTemplate;
-
-  //     const gallerySLB = new SimpleLightbox('.gallery a', {
-  //       captionsData: 'alt',
-  //       captions: true,
-  //       captionDelay: 250,
-  //     });
-
-  //     gallerySLB.refresh();
-  //   })
-  //   .catch(err => {
-  //     if (err.message === '404') {
-  //       iziToast.error({
-  //         title: 'Error',
-  //         message:
-  //           'Sorry, there are no images matching your search query. Please try again!',
-  //       });
-  //     }
-  //     console.log(err);
-  //   })
-  //   .finally(() => {
-  //     loader.style.display = 'none';
-  //   });
-
-  // console.dir(searchedQuery);
 };
 
 searchFormEl.addEventListener('submit', onSearchFormSubmit);
