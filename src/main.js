@@ -93,9 +93,9 @@ searchFormEl.addEventListener('submit', onSearchFormSubmit);
 const onLoadMoreBtnClick = async event => {
   page += 1;
   loader.style.display = 'inline-block';
+
   try {
     const { data } = await fetchByQuery(searchedQuery, page);
-    console.dir({ data });
 
     const galleryTemplate = data.hits
       .map(el => createGalleryCardTemplate(el))
@@ -105,10 +105,10 @@ const onLoadMoreBtnClick = async event => {
 
     const cardSize = document.querySelector('.gallery-card');
 
-    const cardHeight = cardSize.getBoundingClientRect();
+    const { height } = cardSize.getBoundingClientRect();
 
     window.scrollBy({
-      top: 2 * cardHeight.height,
+      top: 2 * height,
       behavior: 'smooth',
     });
 
