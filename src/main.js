@@ -56,7 +56,7 @@ const onSearchFormSubmit = async event => {
       return;
     }
 
-    if (data.total > 10) {
+    if (data.total > 15) {
       loadMoreBtnEl.classList.remove('is-hidden');
       loadMoreBtnEl.addEventListener('click', onLoadMoreBtnClick);
     }
