@@ -127,6 +127,7 @@ input {
 }
 
 .loader {
+  display: block;
   margin-top: 25px;
   margin-left: 100px;
   width: 64px;

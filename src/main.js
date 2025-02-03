@@ -92,7 +92,7 @@ searchFormEl.addEventListener('submit', onSearchFormSubmit);
 
 const onLoadMoreBtnClick = async event => {
   page += 1;
-  loader.style.display = 'inline-block';
+  loader.style.display = 'block';
 
   try {
     const { data } = await fetchByQuery(searchedQuery, page);
