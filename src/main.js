@@ -14,8 +14,6 @@ const loader = document.querySelector('.loader');
 
 const loadMoreBtnEl = document.querySelector('.load-more-btn');
 
-const cardSize = document.querySelector('.gallery-card');
-
 let page = 1;
 let searchedQuery = '';
 
@@ -92,11 +90,11 @@ const onSearchFormSubmit = async event => {
 searchFormEl.addEventListener('submit', onSearchFormSubmit);
 
 const onLoadMoreBtnClick = async event => {
-  loader.style.display = 'inline-block';
   page += 1;
   try {
     const { data } = await fetchByQuery(searchedQuery, page);
     console.dir({ data });
+    loader.style.display = 'inline-block';
 
     const galleryTemplate = data.hits
       .map(el => createGalleryCardTemplate(el))
@@ -104,12 +102,12 @@ const onLoadMoreBtnClick = async event => {
 
     galleryEl.insertAdjacentHTML('beforeend', galleryTemplate);
 
-    let cardHeight = cardSize.getBoundingClientRect();
+    const cardSize = document.querySelector('.gallery-card');
 
-    const scrollHeight = 2 * cardHeight;
+    const cardHeight = cardSize.getBoundingClientRect();
 
     window.scrollBy({
-      top: scrollHeight,
+      top: 2 * cardHeight.height,
       behavior: 'smooth',
     });
 
@@ -117,7 +115,7 @@ const onLoadMoreBtnClick = async event => {
 
     if (page === lastPage) {
       loadMoreBtnEl.classList.add('is-hidden');
-      loadMoreBtnEl.removeEventListener('click', onLoadMoreBtnClick);
+
       iziToast.info({
         message:
           'We are sorry, but you have reached the end of search results.',
