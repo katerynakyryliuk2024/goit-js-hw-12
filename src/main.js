@@ -20,6 +20,7 @@ let searchedQuery = '';
 loader.style.display = 'none';
 
 const onSearchFormSubmit = async event => {
+  galleryEl.innerHTML = '';
   loader.style.display = 'inline-block';
 
   try {
@@ -91,10 +92,10 @@ searchFormEl.addEventListener('submit', onSearchFormSubmit);
 
 const onLoadMoreBtnClick = async event => {
   page += 1;
+  loader.style.display = 'inline-block';
   try {
     const { data } = await fetchByQuery(searchedQuery, page);
     console.dir({ data });
-    loader.style.display = 'inline-block';
 
     const galleryTemplate = data.hits
       .map(el => createGalleryCardTemplate(el))
