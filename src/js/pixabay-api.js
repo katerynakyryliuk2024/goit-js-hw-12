@@ -5,7 +5,7 @@ export const fetchByQuery = (searchedQuery, currentPage) => {
       key: '48282241-c94e9d668c7a92092d53abf55',
       q: searchedQuery,
       page: currentPage,
-      per_page: 10,
+      per_page: 15,
       image_type: 'photo',
       orientation: 'horizontal',
       safesearch: 'true',

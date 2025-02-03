@@ -14,7 +14,7 @@ const loader = document.querySelector('.loader');
 
 const loadMoreBtnEl = document.querySelector('.load-more-btn');
 
-const cardSize = document.querySelector('.gallery-size');
+const cardSize = document.querySelector('.gallery-card');
 
 let page = 1;
 let searchedQuery = '';
@@ -68,10 +68,6 @@ const onSearchFormSubmit = async event => {
 
     galleryEl.innerHTML = galleryTemplate;
 
-    let cardHeight = cardSize.getBoundingClientRect();
-
-    cardSize.scrollBy(0, 2 * { height: cardHeight });
-
     const gallerySLB = new SimpleLightbox('.gallery a', {
       captionsData: 'alt',
       captions: true,
@@ -80,7 +76,7 @@ const onSearchFormSubmit = async event => {
 
     gallerySLB.refresh();
   } catch (error) {
-    if (err.message === '404') {
+    if (error.message === '404') {
       iziToast.error({
         title: 'Error',
         message:
@@ -97,7 +93,7 @@ searchFormEl.addEventListener('submit', onSearchFormSubmit);
 
 const onLoadMoreBtnClick = async event => {
   loader.style.display = 'inline-block';
-  page = +1;
+  page += 1;
   try {
     const { data } = await fetchByQuery(searchedQuery, page);
     console.dir({ data });
@@ -108,9 +104,18 @@ const onLoadMoreBtnClick = async event => {
 
     galleryEl.insertAdjacentHTML('beforeend', galleryTemplate);
 
-    const lastPage = Math.ceil(data.totalHits / 10);
+    let cardHeight = cardSize.getBoundingClientRect();
 
-    if ((page = lastPage)) {
+    const scrollHeight = 2 * { height: cardHeight };
+
+    window.scrollBy({
+      top: scrollHeight,
+      behavior: 'smooth',
+    });
+
+    const lastPage = Math.ceil(data.totalHits / 15);
+
+    if (page === lastPage) {
       loadMoreBtnEl.classList.add('is-hidden');
       loadMoreBtnEl.removeEventListener('click', onLoadMoreBtnClick);
       iziToast.info({
