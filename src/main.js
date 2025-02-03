@@ -105,10 +105,10 @@ const onLoadMoreBtnClick = async event => {
 
     const cardSize = document.querySelector('.gallery-card');
 
-    const { height } = cardSize.getBoundingClientRect();
+    const cardHeight = cardSize.getBoundingClientRect();
 
     window.scrollBy({
-      top: 2 * height,
+      top: 2 * cardHeight.height,
       behavior: 'smooth',
     });
 
