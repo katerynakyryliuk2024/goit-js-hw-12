@@ -106,7 +106,7 @@ const onLoadMoreBtnClick = async event => {
 
     let cardHeight = cardSize.getBoundingClientRect();
 
-    const scrollHeight = 2 * { height: cardHeight };
+    const scrollHeight = 2 * cardHeight;
 
     window.scrollBy({
       top: scrollHeight,
